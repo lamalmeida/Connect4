@@ -14,7 +14,7 @@ int main() {
             int col;
             std::cout << "Enter colum number (0-6): ";
             std::cin >> col;
-            while ((col > 6) | (col < 0)) {
+            while ((col > 6) | (col < 0) | (board.getHeight()[col]%7 > 5)) {
                 std::cout << "Invalid choice!\nPlease enter colum number (0-6): ";
                 std::cin >> col;
             }
@@ -24,8 +24,22 @@ int main() {
                 std::cout << "You win!" << std::endl;
                 break;
             }
-            std::vector<int> moves = board.listMoves();
-            int ai_move = minimax(board, (42 - board.getCounter()), -100, 100, false);
+            int bestScore = 1000;
+            int score = 100;
+            int ai_move = -1;
+            auto start = std::chrono::high_resolution_clock::now();
+            for (int col : board.listMoves()) {
+                board.makeMove(col);
+                score = minimax(board, 10, -100000, 100000, true);
+                board.undoMove();
+                if (score < bestScore){
+                    bestScore = score;
+                    ai_move = col;
+                }
+            }
+            auto end = std::chrono::high_resolution_clock::now();
+            auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    std::cout << "The code took " << diff.count() << " nanoseconds to execute." << std::endl;
             board.makeMove(ai_move);
             board.printBoard();
             if (board.isWin(board.getBitboard()[1])) {
@@ -44,10 +58,8 @@ int main() {
             auto start = std::chrono::high_resolution_clock::now();
             for (int col : board.listMoves()) {
                 board.makeMove(col);
-                score = minimax(board, 13, -100000, 100000, false);
+                score = minimax(board, 10, -100000, 100000, false);
                 board.undoMove();
-                std::cout << col << ":";
-                std::cout << score << std::endl;
                 if (score > bestScore){
                     bestScore = score;
                     ai_move = col;
