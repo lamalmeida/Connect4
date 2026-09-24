@@ -1,0 +1,5 @@
+*.o
+connect4
+*.exe
+.vscode/
+.DS_Store
