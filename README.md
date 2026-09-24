@@ -1,22 +1,36 @@
-# Connect 4
+# Connect Four
 
-This is a C++ program that implements the classic game of Connect 4. You can play against a computer that is running an implementation of the minimax algorithm with alpha beta pruning.
+A C++ Connect Four game with a computer opponent implemented using minimax search and alpha-beta pruning.
 
-This is also the second of three more projects. the first is a Tic Tac Toe game that didn't include alpha-beta pruning and was done in Python.
+This project followed the earlier Python Tic-Tac-Toe minimax project and explores the same game-search ideas on a larger state space.
 
-## How to run
+## Build
 
-To start the game, open a terminal and navigate to the folder where you saved the file `main.cp`. Then compile with the following command:
+From the repository root:
 
-`g++ -Wall -Wextra -Werror main.cpp board.cpp ai.cpp -o main.exe`
+```bash
+g++ -Wall -Wextra main.cpp board.cpp ai.cpp -o connect4
+```
 
-Followed by:
+Then run:
 
-`./main.exe `
+```bash
+./connect4
+```
+
+On Windows, compile to `connect4.exe` and run that executable instead.
 
 ## How to play
 
-The game board is a 6x7 grid of squares. The first player uses X and the second player uses O. The players take turns to place their symbol at the bottom of a collumn, trying to form a horizontal, vertical, or diagonal line of four symbols. The player who does so first wins the game. If all squares are filled and no one wins, the game is a draw.
+Choose whether to move first or second, then enter a column number from 0 to 6. Pieces fall to the lowest available position in that column.
 
-To make a move, simply choose the collumn you want to play on. The game will check if the move is valid and update the board accordingly. 
+The first player to connect four pieces horizontally, vertically, or diagonally wins.
 
+## Implementation
+
+The project demonstrates:
+- compact board-state representation,
+- legal move generation and undo,
+- terminal-state evaluation,
+- minimax search, and
+- alpha-beta pruning to reduce the number of explored positions.
