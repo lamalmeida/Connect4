@@ -12,10 +12,10 @@ int main() {
     if (choice == 1) {
         while (board.getCounter() < 42) {
             int col;
-            std::cout << "Enter colum number (0-6): ";
+            std::cout << "Enter column number (0-6): ";
             std::cin >> col;
-            while ((col > 6) | (col < 0) | (board.getHeight()[col]%7 > 5)) {
-                std::cout << "Invalid choice!\nPlease enter colum number (0-6): ";
+            while (col > 6 || col < 0 || board.getHeight()[col] % 7 > 5) {
+                std::cout << "Invalid choice!\nPlease enter column number (0-6): ";
                 std::cin >> col;
             }
             board.makeMove(col);
@@ -39,7 +39,7 @@ int main() {
             }
             auto end = std::chrono::high_resolution_clock::now();
             auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    std::cout << "The code took " << diff.count() << " nanoseconds to execute." << std::endl;
+    std::cout << "The code took " << diff.count() << " milliseconds to execute." << std::endl;
             board.makeMove(ai_move);
             board.printBoard();
             if (board.isWin(board.getBitboard()[1])) {
@@ -67,7 +67,7 @@ int main() {
             }
             auto end = std::chrono::high_resolution_clock::now();
             auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    std::cout << "The code took " << diff.count() << " nanoseconds to execute." << std::endl;
+    std::cout << "The code took " << diff.count() << " milliseconds to execute." << std::endl;
             board.makeMove(ai_move);
             board.printBoard();
             if (board.isWin(board.getBitboard()[0])) {
@@ -76,10 +76,10 @@ int main() {
                 break;
             }
             int col;
-            std::cout << "Enter colum number (0-6): ";
+            std::cout << "Enter column number (0-6): ";
             std::cin >> col;
-            while ((col > 6) | (col < 0)) {
-                std::cout << "Invalid choice!\nPlease enter colum number (0-6): ";
+            while (col > 6 || col < 0 || board.getHeight()[col] % 7 > 5) {
+                std::cout << "Invalid choice!\nPlease enter column number (0-6): ";
                 std::cin >> col;
             }
             board.makeMove(col);
